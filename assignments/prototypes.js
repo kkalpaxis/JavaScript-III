@@ -23,7 +23,7 @@ function GameObject (attr) {
   this.name = attr.name;
   this.dimensions = attr.dimensions;
 };
-GameObject.prototype.destroy = function(attr) {
+GameObject.prototype.destroy = function() {
   return `${this.name} was removed from the game.`
 };
 
@@ -39,7 +39,7 @@ function CharacterStats(attr) {
   this.healthPoints = attr.healthPoints;
 };
 CharacterStats.prototype = Object.create(GameObject.prototype);
-CharacterStats.prototype.takeDamage = function(attr) {
+CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`
 };
 

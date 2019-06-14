@@ -1,9 +1,11 @@
 /*
-  Object oriented design is commonly used in video games.  For this part of the assignment you will be implementing several constructor functions with their correct inheritance hierarchy.
+  Object oriented design is commonly used in video games.  For this part of the assignment you will be implementing several constructor 
+  functions with their correct inheritance hierarchy.
 
   In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.  
 
-  At the bottom of this file are 3 objects that all end up inheriting from Humanoid.  Use the objects at the bottom of the page to test your constructor functions.
+  At the bottom of this file are 3 objects that all end up inheriting from Humanoid.  Use the objects at the bottom of the page to test 
+  your constructor functions.
   
   Each constructor function has unique properties and methods that are defined in their block comments below:
 */
@@ -16,12 +18,30 @@
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
 
+function GameObject (attr) {
+  this.createdAt = new Date();
+  this.name = attr.name;
+  this.dimensions = attr.dimensions;
+};
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`
+};
+
 /*
   === CharacterStats ===
   * healthPoints
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(attr) {
+  GameObject.apply(this, attr);
+  this.healthPoints = attr.healthPoints;
+};
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`
+};
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -32,6 +52,17 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+function Humanoid(attr) {
+  CharacterStats.apply(this, attr); 
+  this.team = attr.team;
+  this.weapons = attr.weapons;
+  this.language = attr.language;
+};
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeeting in ${this.language}.;`
+};
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
